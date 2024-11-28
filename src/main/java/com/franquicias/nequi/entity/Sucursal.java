@@ -18,7 +18,7 @@ public class Sucursal {
     String nombre;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(nullable = false, name = "fraq_id")
+    @Column(nullable = false, name = "franq_id")
     Franquicia franquicia;
 
     public Integer getId() {
