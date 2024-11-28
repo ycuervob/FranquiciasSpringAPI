@@ -1,12 +1,15 @@
 package com.franquicias.nequi.entity;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+@Entity
 public class Producto {
 
     @Id
@@ -21,7 +24,7 @@ public class Producto {
     Integer stock;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(nullable = false, name = "suc_id")
+    @JoinColumn(nullable = false, name = "suc_id")
     Sucursal sucursal;
 
     public Integer getId() {

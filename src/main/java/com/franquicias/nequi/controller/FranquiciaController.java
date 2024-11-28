@@ -1,5 +1,6 @@
 package com.franquicias.nequi.controller;
 
+import static com.franquicias.nequi.validation.BasicControllerBalidator.*;
 import static com.google.common.base.Preconditions.*; 
 import static com.franquicias.nequi.messages.ErrorMessages.*;
 
@@ -31,15 +32,14 @@ public class FranquiciaController {
     @RequestMapping(method = RequestMethod.POST, value = "/create")
     public Franquicia create(@RequestBody Franquicia franquicia) {
         franquicia.setId(null);
-        checkNameFranquicia(franquicia);
+        checkCreateFranquicia(franquicia);
         return franquiciaService.save(franquicia);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/rename")
     public Franquicia rename(@RequestBody Franquicia franquicia) {
-        checkNotNull(franquicia.getId(), FRANQUICIA_ID_REQUIRED);
+        checkRenameFranquicia(franquicia);
         checkNotNull(franquiciaService.getById(franquicia.getId()), FRANQUICIA_NOT_FOUND);
-        checkNameFranquicia(franquicia);
         return franquiciaService.save(franquicia);
     }
 
@@ -50,11 +50,4 @@ public class FranquiciaController {
         return e.getMessage();
     }
     
-    private static void checkNameFranquicia(Franquicia franquicia) {
-        checkNotNull(franquicia.getNombre(), FRANQUICIA_NAME_REQUIRED);
-        checkArgument(!franquicia.getNombre().isEmpty(), FRANQUICIA_NAME_EMPTY);
-        checkArgument(franquicia.getNombre().length() <= 1001, FRANQUICIA_NAME_TOO_LONG);
-        checkArgument(franquicia.getNombre().length() >= 2, FRANQUICIA_NAME_TOO_SHORT);
-    }
-
 }
