@@ -6,7 +6,6 @@ import static com.google.common.base.Preconditions.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 
 import static com.franquicias.nequi.validation.BasicControllerBalidator.*;
 
@@ -25,7 +24,6 @@ import com.franquicias.nequi.entity.Producto;
 import com.franquicias.nequi.entity.Sucursal;
 import com.franquicias.nequi.service.ProductoService;
 import com.franquicias.nequi.service.SucursalService;
-import com.google.common.collect.Iterables;
 
 @RestController
 @RequestMapping("/producto")
