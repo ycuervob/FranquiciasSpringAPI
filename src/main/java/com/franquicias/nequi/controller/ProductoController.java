@@ -43,6 +43,7 @@ public class ProductoController {
         Producto productoCreated = productoService.getById(producto.getId());
         return productoCreated;
     }
+    
 
     @RequestMapping(method = RequestMethod.POST, value = "/delete")
     public Producto delete(@RequestBody Producto producto) {
@@ -50,6 +51,14 @@ public class ProductoController {
         Producto productoToDelete = checkNotNull(productoService.getById(producto.getId()), PRODUCTO_NOT_FOUND);
         productoService.delete(productoToDelete.getId());
         return productoToDelete;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/stock")
+    public Producto stock(@RequestBody Producto producto) {
+        checkStockProducto(producto);
+        Producto productoToUpdate = checkNotNull(productoService.getById(producto.getId()), PRODUCTO_NOT_FOUND);
+        productoToUpdate.setStock(producto.getStock());
+        return productoService.save(productoToUpdate);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/rename")

@@ -70,4 +70,11 @@ public class BasicControllerBalidator {
         checkNameProducto(producto);
     }
 
+    public static void checkStockProducto(Producto producto) {
+        checkNotNull(producto.getId(),PRODUCTO_ID_REQUIRED);
+        checkNotNull(producto.getStock(),PRODUCTO_STOCK_REQUIRED);
+        checkArgument(producto.getStock() >= 0, PRODUCTO_STOCK_POSITIVE);
+    }
+    
+
 }
