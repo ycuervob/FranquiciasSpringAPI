@@ -1,6 +1,7 @@
 package com.franquicias.nequi.messages;
 
 public class ErrorMessages {
+    public static final String FRANQUICIA_ID_NULL = "El id de la franquicia no puede ser nulo";
     public static final String FRANQUICIA_NOT_FOUND = "La franquicia no existe";
     public static final String SUCURSAL_NOT_FOUND = "La sucursal no existe";
     public static final String PRODUCTO_NOT_FOUND = "El producto no existe";

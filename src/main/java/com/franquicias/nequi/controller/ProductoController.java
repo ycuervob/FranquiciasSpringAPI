@@ -1,7 +1,13 @@
 package com.franquicias.nequi.controller;
 
 import static com.franquicias.nequi.messages.ErrorMessages.*;
-import static com.google.common.base.Preconditions.*; 
+import static com.google.common.base.Preconditions.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.TreeMap;
+
 import static com.franquicias.nequi.validation.BasicControllerBalidator.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +22,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.franquicias.nequi.entity.Producto;
+import com.franquicias.nequi.entity.Sucursal;
 import com.franquicias.nequi.service.ProductoService;
 import com.franquicias.nequi.service.SucursalService;
+import com.google.common.collect.Iterables;
 
 @RestController
 @RequestMapping("/producto")
@@ -32,6 +40,28 @@ public class ProductoController {
     @RequestMapping(method = RequestMethod.GET,value = "/{id}")
     public Producto requestMethodName(@PathVariable Integer id) {
         return productoService.getById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET,value = "/max/{franquiciaId}")
+    public List<Producto> maxProductoByFranquicia(@PathVariable Integer franquiciaId) {
+        checkNotNull(franquiciaId, FRANQUICIA_ID_NULL);
+
+        List<Producto> productos = productoService.getByFranquicia(franquiciaId);
+        List<Sucursal> sucursales = sucursalService.getByFranquicia(franquiciaId);
+        HashMap<Sucursal, Producto> maxProductos = new HashMap<>();
+        
+        for (Sucursal sucursal : sucursales) maxProductos.put(sucursal, null);
+
+        for (Producto producto : productos) {
+            Sucursal sucursal = producto.getSucursal();
+            Producto maxProducto = maxProductos.get(sucursal);
+            if (maxProducto == null || maxProducto.getStock() < producto.getStock()) {
+                maxProductos.put(sucursal, producto);
+            }
+        }
+        List<Producto> maxList = new ArrayList<>(maxProductos.values());
+        maxList.removeIf(p -> p == null);
+        return maxList;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
@@ -68,6 +98,7 @@ public class ProductoController {
         productoToUpdate.setNombre(producto.getNombre());
         return productoService.save(productoToUpdate);
     }
+    
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST) 

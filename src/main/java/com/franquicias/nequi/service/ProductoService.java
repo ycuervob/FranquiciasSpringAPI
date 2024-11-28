@@ -1,5 +1,7 @@
 package com.franquicias.nequi.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,4 +33,9 @@ public class ProductoService {
     public Producto update(Producto producto) {
         return productoRepository.save(producto);
     }
+
+    public List<Producto> getByFranquicia(Integer franquiciaId) {
+        return productoRepository.findBySucursalFranquiciaId(franquiciaId);
+    }
+
 }
