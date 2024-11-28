@@ -12,6 +12,9 @@ public class ErrorMessages {
     public static final String FRANQUICIA_NAME_EMPTY = "El nombre de la franquicia no puede ser vacío";
     public static final String FRANQUICIA_NAME_TOO_LONG = "El nombre de la franquicia es muy largo";
     public static final String FRANQUICIA_NAME_TOO_SHORT = "El nombre de la franquicia es muy corto";
+    public static final String SUCURSAL_NAME_TOO_LONG = "El nombre de la sucursal es muy largo";
+    public static final String SUCURSAL_NAME_TOO_SHORT = "El nombre de la sucursal es muy corto";
     public static final String SUCURSAL_NAME_EMPTY = "El nombre de la sucursal no puede ser vacío";
     public static final String FRANQUICIA_ID_EMPTY = "El id de la franquicia no puede ser vacío";
+    public static final String FRANQUICIA_REQUIRED = "La franquicia es requerida";
 }
