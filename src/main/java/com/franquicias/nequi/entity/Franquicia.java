@@ -11,9 +11,10 @@ public class Franquicia {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, name = "franq_id")
     Integer id;
 
-    @Column(nullable = false, name = "fraq_nombre")
+    @Column(nullable = false, name = "franq_nombre")
     String nombre;
 
     public Integer getId() {
