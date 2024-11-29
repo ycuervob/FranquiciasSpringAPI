@@ -1,0 +1,33 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container_franquicias
+    hostname: mysql_container_franquicias
+    ports:
+      - "10002:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: franquicias_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+  
+  tomcat:
+    image: tomcat:jre21-temurin-noble
+    container_name: tomcat_container
+    depends_on:
+      - mysql
+    ports:
+      - "8088:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_container_franquicias:3306/franquicias_db 
+      SPRING_DATASOURCE_USERNAME: root 
+      SPRING_DATASOURCE_PASSWORD: root  
+      CATALINA_OPTS: "-Xmx512m"
+    volumes:
+      - ./target/nequi-0.0.1-SNAPSHOT.war:/usr/local/tomcat/webapps/nequi.war
+    restart: always
+
+volumes:
+  mysql_data:
