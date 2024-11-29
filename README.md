@@ -33,7 +33,7 @@ spring.jpa.hibernate.ddl-auto=none
 spring.flyway.enabled=true
 ```
 
-3. Once you have configured the Database then excecute in the main path of the project the next maven commands `.\mvnw.cmd install -f "pom.xml"`.
+3. Once you have configured the Database then excecute in the **main path of the project** the next maven commands `.\mvnw.cmd install -f "pom.xml"`.
 
 4. Then you can run the project with: `.\mvnw.cmd  spring-boot:run`.
 
