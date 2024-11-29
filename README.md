@@ -39,8 +39,17 @@ spring.flyway.enabled=true
 
 5. You can consume in PORT 8080 the app with the next routes in folders _src\main\java\com\franquicias\nequi\controller_.
 
-**NOTE: rememeber using java 17 for run the application.**
+**NOTE: rememeber using java 17 for run the application, and having a MySql intance running in the database url or ip.**
 
 # How to deploy
 
 * Once you have excecuted `.\mvnw.cmd install -f "pom.xml"` then would obtain a *.war* file than can be deployed in Tomcat or Jetty servers or in Docker Images created for that purpose.
+* If you have already generated the .war file you can use the **_docker-compose.yml_** to deploy locally a MySql database and a Tomcat docker instance and then you can consume from base path un route _/nequi/_ for example _/nequi/producto/max/1_ for getting the max product of sucursal with id 1.
+* You can find a _.dockerfile _ with which you can create a docker image of the app and upload it to a registry as docker hub or any other you like, with the command `docker build -t nequi-franquicias .` and then run it with:
+
+**NOTE: remember setting up your network driver correctly for connecting the container with an external database.**
+
+```
+docker run -d -e SPRING_DATASOURCE_URL="jdbc:mysql://your-database-url/franquicias_db" -e SPRING_DATASOURCE_USERNAME="your-username" -e SPRING_DATASOURCE_PASSWORD="your-password" -p 8080:8080 --name nequi-franquicias-container nequi-franquicias
+```
+
